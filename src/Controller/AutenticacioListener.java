@@ -4,6 +4,7 @@ import Network.NetworkManager;
 import view.AutenticacioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class AutenticacioListener implements ActionListener{
 
@@ -36,6 +37,12 @@ public class AutenticacioListener implements ActionListener{
 
                 }else {//Enviar i rebre resposta del servidor
 
+                    try {
+                        networkManager.sendMessageSignIn(viewAutenticacio.getJtfName(), viewAutenticacio.getJtfPassword());
+                    } catch (IOException e1) {
+                        System.err.println(e1.getMessage());
+                        break;
+                    }
                     //si la resposta no es satisfactoria
                     if(!networkManager.singInIsCorrect()){
                         viewAutenticacio.showError("Sign-in incorrect");
