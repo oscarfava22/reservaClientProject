@@ -1,20 +1,24 @@
 package Controller;
 
+import Network.NetworkManager;
 import view.AutenticacioView;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AutenticacioListener implements ActionListener{
 
-    private AutenticacioView view;
+    private AutenticacioView viewAutenticacio;
     private ReservaListener controller;
+    private NetworkManager networkManager;
 
-    public AutenticacioListener (AutenticacioView view, ReservaListener controller) {
+    public AutenticacioListener (AutenticacioView viewAutenticacio, ReservaListener controller) {
 
-        this.view = view;
+        this.viewAutenticacio = viewAutenticacio;
         this.controller = controller;
+    }
 
+    public void registerNetwork(NetworkManager n){
+        this.networkManager = n;
     }
 
     @Override
@@ -24,13 +28,28 @@ public class AutenticacioListener implements ActionListener{
 
             case AutenticacioView.ACCESS:
 
-                //Comprovar que el password tingui 6 digits.
                 //Comprovar que el nom d'usuari no estigui buit.
-                //Enviar i rebre resposta del servidor
+                if(viewAutenticacio.getJtfName().equals("") || viewAutenticacio.getJtfPassword().equals("") ){
+                    viewAutenticacio.showError("Has deixat el nom o la contrassenya en blanc." + System.lineSeparator() +
+                            "Siusplau, escriu un nom i una contrassenya.");
+                    break;
 
-                //Si la resposta del servidor és satisfactoria:
-                controller.setViewVisible();
-                view.setVisible(false);
+                }else {//Enviar i rebre resposta del servidor
+
+                    //si la resposta no es satisfactoria
+                    if(!networkManager.singInIsCorrect()){
+                        viewAutenticacio.showError("Sign-in incorrect");
+                    }else {
+                        //Si la resposta del servidor és satisfactoria:
+                        controller.setViewVisible();
+                        viewAutenticacio.setVisible(false);
+                    }
+
+
+                }
+
+
+
                 break;
         }
     }
