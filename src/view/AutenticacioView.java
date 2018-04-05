@@ -3,8 +3,10 @@ package view;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class AutenticacioView extends JFrame {
+    public static final String ACCESS = "ACCESS";
     private JTextField jtfName;
     private JTextField jtfPassword;
     private JButton jbAccess;
@@ -12,6 +14,7 @@ public class AutenticacioView extends JFrame {
     public AutenticacioView(){
 
         setSize(350,350);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Autenticació");
 
@@ -25,22 +28,22 @@ public class AutenticacioView extends JFrame {
         jcbCenter.setLayout(new BoxLayout(jcbCenter, BoxLayout.Y_AXIS));
 
         //name text
-        jtfName = new JTextField("Nom");
+        jtfName = new JTextField();
         final JPanel jpLeftCenter = new JPanel();
         jpLeftCenter.setLayout(new GridLayout(1,2));
         jpLeftCenter.setBorder(new EmptyBorder(10,10,10,10));
-        final JLabel jlNomUser = new JLabel("Introdueix nom d'usuari: ");
+        final JLabel jlNomUser = new JLabel("Nom d'usuari: ");
         jpLeftCenter.add(jlNomUser);
         jpLeftCenter.add(jtfName);
         final JPanel jpCenterUp = new JPanel();
         jpCenterUp.add(jpLeftCenter);
 
         //contrassenya text
-        jtfPassword = new JTextField("Contrassenya");
+        jtfPassword = new JTextField();
         final JPanel jpRightCenter = new JPanel();
         jpRightCenter.setLayout(new GridLayout(1,2));
         jpRightCenter.setBorder(new EmptyBorder(10,10,10,10));
-        final JLabel jlContra = new JLabel("Introdueix una contrassenya: ");
+        final JLabel jlContra = new JLabel("Contrassenya: ");
         jpRightCenter.add(jlContra);
         jpRightCenter.add(jtfPassword);
         final JPanel jpCenterDown = new JPanel();
@@ -62,5 +65,10 @@ public class AutenticacioView extends JFrame {
         getContentPane().add(jpNorth, BorderLayout.PAGE_START);
         getContentPane().add(jpSouth, BorderLayout.PAGE_END);
         setVisible(true);
+    }
+
+    public void registerControllers (ActionListener actionListener) {
+        jbAccess.addActionListener(actionListener);
+        jbAccess.setActionCommand(ACCESS);
     }
 }
