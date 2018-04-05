@@ -39,7 +39,7 @@ public class AutenticacioView extends JFrame {
         jpCenterUp.add(jpLeftCenter);
 
         //contrassenya text
-        jtfPassword = new JTextField();
+        jtfPassword = new JPasswordField();
         final JPanel jpRightCenter = new JPanel();
         jpRightCenter.setLayout(new GridLayout(1,2));
         jpRightCenter.setBorder(new EmptyBorder(10,10,10,10));

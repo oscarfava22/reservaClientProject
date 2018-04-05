@@ -24,6 +24,11 @@ public class AutenticacioListener implements ActionListener{
 
             case AutenticacioView.ACCESS:
 
+                //Comprovar que el password tingui 6 digits.
+                //Comprovar que el nom d'usuari no estigui buit.
+                //Enviar i rebre resposta del servidor
+
+                //Si la resposta del servidor és satisfactoria:
                 controller.setViewVisible();
                 view.setVisible(false);
                 break;

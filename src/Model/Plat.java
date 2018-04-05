@@ -2,11 +2,14 @@ package Model;
 
 public class Plat {
 
-    private String plat;
+    private String nom;
+    private float price;
     private int unitats;
 
-    public Plat (String plat, int unitats) {
-        this.plat = plat;
+    public Plat (String nom, int price, int unitats) {
+
+        this.nom = nom;
+        this.price = price;
         this.unitats = unitats;
     }
 
