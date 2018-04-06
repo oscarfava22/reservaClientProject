@@ -1,36 +1,41 @@
 package Model;
 
-import org.json.JSONObject;
-
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class JsonManager {
 
     private int json;
-    private JSONObject obj;
+    private JsonObject obj;
 
     public JsonManager() {
-       /*
-        try {
+        obj = carregarMemoria();
+    }
 
-            Object obj = parser.parse(new FileReader("c:\\file.json"));
+    //carregarMemoria
+    private static JsonObject carregarMemoria(){
 
-            JSONObject jsonObject =  (JSONObject) obj;
-        }catch (FileNotFoundException e){
-            System.err.println(e.getMessage());
-        } catch (IOException e) {
+        JsonParser parser = new JsonParser(); // tipus parser per obtenir el format desitjat
+
+        try{
+            FileReader fr = new FileReader("data/config.json"); //cargo el fitxero amb la classe fileReader, busco en el relative path
+            JsonElement datos = parser.parse(fr); //per a passar a format json de tipus element usant el "parse"
+            return datos.getAsJsonObject();
+
+        }catch(FileNotFoundException e){ //salta el bloc de codi si hi ha un error
             System.err.println(e.getMessage());
         }
-        */
+        return null;
     }
 
     public String getIp(){
-        return obj.getString("IP");
+        return obj.get("IP").getAsString();
     }
 
     public int getPort(){
-        return obj.getInt("PORT");
+        return obj.get("PORT").getAsInt();
     }
 }

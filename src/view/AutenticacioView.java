@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class AutenticacioView extends JFrame {
     public static final String ACCESS = "ACCESS";
     private JTextField jtfName;
-    private JTextField jtfPassword;
+    private JPasswordField jtfPassword;
     private JButton jbAccess;
 
     public AutenticacioView(){
@@ -30,17 +30,23 @@ public class AutenticacioView extends JFrame {
 
         //name text
         jtfName = new JTextField();
+        jtfName.setPreferredSize(new Dimension(150,20));
         final JPanel jpLeftCenter = new JPanel();
         jpLeftCenter.setLayout(new GridLayout(1,2));
         jpLeftCenter.setBorder(new EmptyBorder(10,10,10,10));
         final JLabel jlNomUser = new JLabel("Introdueix nom d'usuari: ");
         jlNomUser.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        final JPanel jpCuadrarLeft = new JPanel();
+        jpCuadrarLeft.add(jtfName);
+
         jpLeftCenter.add(jlNomUser);
-        jpLeftCenter.add(jtfName);
+        jpLeftCenter.add(jpCuadrarLeft);
+
 
 
         //contrassenya text
-        jtfPassword = new JTextField();
+        jtfPassword = new JPasswordField();
         final JPanel jpRightCenter = new JPanel();
         jpRightCenter.setLayout(new GridLayout(1,2));
         jpRightCenter.setBorder(new EmptyBorder(10,10,10,10));

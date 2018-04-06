@@ -64,11 +64,11 @@ public class NetworkManager extends Thread {
         }
         return signCorrect;
     }
+
     public void sendOrder() throws IOException {
     }
 
     public void sendMessageSignIn(String login, String pass) throws IOException {
-        oos.writeChars(login);
-        oos.writeChars(pass);
+        oos.writeChars(login + "%%" + pass);
     }
 }
