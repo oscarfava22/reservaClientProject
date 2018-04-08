@@ -8,7 +8,6 @@ import java.io.FileReader;
 
 public class JsonManager {
 
-    private int json;
     private JsonObject obj;
 
     public JsonManager() {

@@ -1,5 +1,7 @@
 package view;
 
+import Model.Plat;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,12 @@ public class CartaView extends JFrame{
     private final JButton jbPagar;
     private final JButton jbDemanar;
     private final JLabel jlPreu;
+
+    private ArrayList<Plat> entrants;
+    private ArrayList<Plat> primers;
+    private ArrayList<Plat> begudes;
+    private ArrayList<Plat> postres;
+
     private ArrayList<JButton> jButtonsAfegirUnitat;
     private ArrayList<JButton> jButtonsTreureUnitat;
     private ArrayList<JButton> jButtonsAfegir;
@@ -24,12 +32,17 @@ public class CartaView extends JFrame{
     private ArrayList<JButton> jButtonsEliminarCistella;
     private ArrayList<JLabel> jLabelsUnitsCistella;
 
-    public CartaView(int numEntrants, int numPrimers, int numBegudes, int numPostres, int numAfegits, int unitats) {
+    public CartaView(int numAfegits, int unitats) {
 
         setSize(800,600);
         setTitle("Carta");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        entrants = new ArrayList<>();
+        primers = new ArrayList<>();
+        begudes = new ArrayList<>();
+        postres = new ArrayList<>();
 
         //North
 
@@ -88,14 +101,14 @@ public class CartaView extends JFrame{
 
         //Taula Entrants
 
-        JPanel jpEntrants2 = new JPanel(new GridLayout(numEntrants,1));
+        JPanel jpEntrants2 = new JPanel(new GridLayout(entrants.size(),1));
 
-        for(int i = 0; i < numEntrants; i++) {
+        for(int i = 0; i < entrants.size(); i++) {
 
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
             JButton jbAfegir = new JButton("Afegir");
-            JLabel jlUnitats = new JLabel(String.valueOf(unitats));
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(unitats));
 
             jButtonsAfegirUnitat.add(jbAfegirUnitats);
             jButtonsTreureUnitat.add(jbTreureUnitats);
@@ -111,14 +124,14 @@ public class CartaView extends JFrame{
 
         //Taula Primers
 
-        JPanel jpPrimers2 = new JPanel(new GridLayout(numPrimers,1));
+        JPanel jpPrimers2 = new JPanel(new GridLayout(primers.size(),1));
 
-        for(int i = 0; i < numPrimers; i++) {
+        for(int i = 0; i < primers.size(); i++) {
 
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
             JButton jbAfegir = new JButton("Afegir");
-            JLabel jlUnitats = new JLabel(String.valueOf(unitats));
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(unitats));
 
             jButtonsAfegirUnitat.add(jbAfegirUnitats);
             jButtonsTreureUnitat.add(jbTreureUnitats);
@@ -133,14 +146,14 @@ public class CartaView extends JFrame{
 
         //Taula Begudes
 
-        JPanel jpBegudes2 = new JPanel(new GridLayout(numBegudes,1));
+        JPanel jpBegudes2 = new JPanel(new GridLayout(begudes.size(),1));
 
-        for(int i = 0; i < numBegudes; i++) {
+        for(int i = 0; i < begudes.size(); i++) {
 
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
             JButton jbAfegir = new JButton("Afegir");
-            JLabel jlUnitats = new JLabel(String.valueOf(unitats));
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(unitats));
 
             jButtonsAfegirUnitat.add(jbAfegirUnitats);
             jButtonsTreureUnitat.add(jbTreureUnitats);
@@ -155,14 +168,14 @@ public class CartaView extends JFrame{
 
         //Taula Postres
 
-        JPanel jpPostres2 = new JPanel(new GridLayout(numPostres,1));
+        JPanel jpPostres2 = new JPanel(new GridLayout(postres.size(),1));
 
-        for(int i = 0; i < numPostres; i++) {
+        for(int i = 0; i < postres.size(); i++) {
 
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
             JButton jbAfegir = new JButton("Afegir");
-            JLabel jlUnitats = new JLabel(String.valueOf(unitats));
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(unitats));
 
             jButtonsAfegirUnitat.add(jbAfegirUnitats);
             jButtonsTreureUnitat.add(jbTreureUnitats);

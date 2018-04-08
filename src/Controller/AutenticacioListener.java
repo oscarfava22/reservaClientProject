@@ -18,6 +18,10 @@ public class AutenticacioListener implements ActionListener{
         this.controller = controller;
     }
 
+    public void showError(String error){
+        viewAutenticacio.showError(error);
+    }
+
     public void registerNetwork(NetworkManager n){
         this.networkManager = n;
     }
@@ -28,6 +32,13 @@ public class AutenticacioListener implements ActionListener{
         switch (e.getActionCommand()) {
 
             case AutenticacioView.ACCESS:
+                if(1 == 1){
+                    controller.setViewVisible();
+                    viewAutenticacio.setVisible(false);
+                    System.out.println("Modificacio adaptada a testing");
+                    break;
+                }
+
 
                 //Comprovar que el nom d'usuari no estigui buit.
                 if(viewAutenticacio.getJtfName().equals("") || viewAutenticacio.getJtfPassword().equals("") ){
@@ -39,13 +50,24 @@ public class AutenticacioListener implements ActionListener{
 
                     try {
                         networkManager.sendMessageSignIn(viewAutenticacio.getJtfName(), viewAutenticacio.getJtfPassword());
+
                     } catch (IOException e1) {
-                        System.err.println(e1.getMessage());
+                        showError(e1.getMessage());
+                        break;
+
+                    }catch (NullPointerException e2){
+                        String message = e2.getMessage();
+                        if(e2.getMessage() == null){
+                            message = "No s'ha conectat el servidor correctament";
+                        }
+                        showError(message);
                         break;
                     }
+
                     //si la resposta no es satisfactoria
                     if(!networkManager.singInIsCorrect()){
                         viewAutenticacio.showError("Sign-in incorrect");
+
                     }else {
                         //Si la resposta del servidor és satisfactoria:
                         controller.setViewVisible();
@@ -54,8 +76,6 @@ public class AutenticacioListener implements ActionListener{
 
 
                 }
-
-
 
                 break;
         }

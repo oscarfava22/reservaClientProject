@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class AutenticacioView extends JFrame {
     public static final String ACCESS = "ACCESS";
@@ -13,7 +14,7 @@ public class AutenticacioView extends JFrame {
 
     public AutenticacioView(){
 
-        setSize(350,350);
+        setSize(450,400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Autenticació");
@@ -29,31 +30,30 @@ public class AutenticacioView extends JFrame {
         jcbCenter.setBorder(BorderFactory.createMatteBorder(1,0,1,0,Color.BLACK));
 
         //name text
-        jtfName = new JTextField();
-        jtfName.setPreferredSize(new Dimension(150,20));
         final JPanel jpLeftCenter = new JPanel();
-        jpLeftCenter.setLayout(new GridLayout(1,2));
-        jpLeftCenter.setBorder(new EmptyBorder(10,10,10,10));
+        jtfName = new JTextField(20);
+        jpLeftCenter.setLayout(new FlowLayout(FlowLayout.LEFT));
         final JLabel jlNomUser = new JLabel("Introdueix nom d'usuari: ");
-        jlNomUser.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        final JPanel jpCuadrarLeft = new JPanel();
-        jpCuadrarLeft.add(jtfName);
+        jlNomUser.setLabelFor(jtfName);
+        jpLeftCenter.setBorder(BorderFactory.createEtchedBorder(1));
 
         jpLeftCenter.add(jlNomUser);
-        jpLeftCenter.add(jpCuadrarLeft);
+        jpLeftCenter.add(jtfName);
 
 
 
-        //contrassenya text
-        jtfPassword = new JPasswordField();
         final JPanel jpRightCenter = new JPanel();
-        jpRightCenter.setLayout(new GridLayout(1,2));
-        jpRightCenter.setBorder(new EmptyBorder(10,10,10,10));
-        final JLabel jlContra = new JLabel("Contrassenya: ");
-        jlContra.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpRightCenter.setLayout(new FlowLayout(FlowLayout.LEFT));
+        jpRightCenter.setBorder(BorderFactory.createEtchedBorder(1));
+        final JLabel jlContra = new JLabel("Contrassenya: " +
+                "                 ");
+        jtfPassword = new JPasswordField(20);
+        jtfPassword.setName("Escriu aqui la teva contrassenya");
+        jlContra.setLabelFor(jtfPassword);
+
         jpRightCenter.add(jlContra);
         jpRightCenter.add(jtfPassword);
+
 
         //add to center layout
         jcbCenter.add(new Container());

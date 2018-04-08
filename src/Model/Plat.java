@@ -5,6 +5,7 @@ public class Plat {
     private String nom;
     private float price;
     private int unitats;
+    private int tipus;
 
     public Plat (String nom, int price, int unitats) {
 
@@ -13,4 +14,7 @@ public class Plat {
         this.unitats = unitats;
     }
 
+    public int getTipus() {
+        return tipus;
+    }
 }
