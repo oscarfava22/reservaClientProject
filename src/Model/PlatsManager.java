@@ -26,8 +26,7 @@ public class PlatsManager {
 
     public void extreureTipusPlat(){
 
-        for (Plat p : plats
-             ) {
+        for (Plat p : plats) {
             switch (p.getTipus()){
                 case 0:
                     entrants.add(p);

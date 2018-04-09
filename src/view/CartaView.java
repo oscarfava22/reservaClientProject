@@ -23,6 +23,7 @@ public class CartaView extends JFrame{
     private ArrayList<Plat> begudes;
     private ArrayList<Plat> postres;
 
+    private JPanel jpCesta;
     private ArrayList<JButton> jButtonsAfegirUnitat;
     private ArrayList<JButton> jButtonsTreureUnitat;
     private ArrayList<JButton> jButtonsAfegir;
@@ -68,22 +69,8 @@ public class CartaView extends JFrame{
             e.printStackTrace();
         }
 
-        JPanel jpCesta = new JPanel(new GridLayout(numAfegits, 1));
-
-        for(int i = 0; i < numAfegits; i++) {
-
-            JButton jbAfegirUnitats = new JButton("+");
-            JButton jbTreureUnitats = new JButton("-");
-            JButton jbAfegir = new JButton("Esborrar");
-            JLabel jlUnitats = new JLabel(String.valueOf(unitats));
-
-            jButtonsAfegirCistella.add(jbAfegirUnitats);
-            jButtonsTreureCistella.add(jbTreureUnitats);
-            jButtonsEliminarCistella.add(jbAfegir);
-            jLabelsUnitsCistella.add(jlUnitats);
-
-            jpCesta.add(new ItemCartaView("Nom afegit", jbAfegirUnitats, jbTreureUnitats, jbAfegir, jlUnitats));
-        }
+        jpCesta = new JPanel(new GridLayout(numAfegits, 1));
+        actualitzarCistella(numAfegits, unitats);
 
         try {
             image = ImageIO.read(new File("data/ic_shopping_basket_black_24dp_2x.png"));
@@ -211,6 +198,28 @@ public class CartaView extends JFrame{
         getContentPane().add(jpSouth, BorderLayout.PAGE_END);
 
         setVisible(false);
+    }
+
+    public void actualitzarCistella(int numAfegits, int unitats) {
+
+        //jpCesta = new JPanel(new GridLayout(numAfegits, 1));
+        jpCesta.removeAll();
+        jpCesta.setLayout(new GridLayout(numAfegits,1));
+        for(int i = 0; i < numAfegits; i++) {
+
+            JButton jbAfegirUnitats = new JButton("+");
+            JButton jbTreureUnitats = new JButton("-");
+            JButton jbAfegir = new JButton("Esborrar");
+            JLabel jlUnitats = new JLabel(String.valueOf(unitats));
+
+            jButtonsAfegirCistella.add(jbAfegirUnitats);
+            jButtonsTreureCistella.add(jbTreureUnitats);
+            jButtonsEliminarCistella.add(jbAfegir);
+            jLabelsUnitsCistella.add(jlUnitats);
+
+            jpCesta.add(new ItemCartaView("Nom afegit", jbAfegirUnitats, jbTreureUnitats, jbAfegir, jlUnitats));
+            jpCesta.updateUI();
+        }
     }
 
     /**
