@@ -16,26 +16,20 @@ public class ItemCartaView extends JPanel {
         JPanel jpAfegirUnitats = new JPanel();
         jpAfegirUnitats.setLayout(new BoxLayout(jpAfegirUnitats, BoxLayout.Y_AXIS));
         jpAfegirUnitats.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+
+        jpAfegirUnitats.add(Box.createVerticalGlue());
         jpAfegirUnitats.add(jbAfegirUnitats);
-        Container container = new Container();
-        container.setMinimumSize(new Dimension(40,50));
-        container.setMaximumSize(new Dimension(40, 50));
-        jpAfegirUnitats.add(container);
+
+        jpAfegirUnitats.add(Box.createVerticalGlue());
         jpAfegirUnitats.add(jbTreureUnitats);
+        jpAfegirUnitats.add(Box.createVerticalGlue());
 
         JPanel jpAfegir = new JPanel();
         jpAfegir.setLayout(new BoxLayout(jpAfegir, BoxLayout.Y_AXIS));
-        //jpAfegir.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
-        Container container2 = new Container();
-        container2.setMinimumSize(new Dimension(40,50));
-        container2.setMaximumSize(new Dimension(40, 50));
-        jpAfegir.add(container2);
+        jpAfegir.add(Box.createVerticalGlue());
         jpAfegir.add(jbAfegir);
-        Container container3 = new Container();
-        container3.setMinimumSize(new Dimension(40,50));
-        container3.setMaximumSize(new Dimension(40, 50));
-        jpAfegir.add(container3);
+        jpAfegir.add(Box.createVerticalGlue());
 
         this.add(jlNom);
         this.add(jlUnitats);
