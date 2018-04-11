@@ -22,6 +22,7 @@ public class CartaView extends JFrame {
     private final JPanel jpPrimers2;
     private final JPanel jpBegudes2;
     private final JPanel jpPostres2;
+    private final JPanel jpComanda;
 
     private JPanel jpCesta;
     private ArrayList<JButton> jButtonsAfegirUnitat;
@@ -32,8 +33,9 @@ public class CartaView extends JFrame {
     private ArrayList<JButton> jButtonsTreureCistella;
     private ArrayList<JButton> jButtonsEliminarCistella;
     private ArrayList<JLabel> jLabelsUnitsCistella;
+    private ArrayList<JLabel> jLabelsServits;
 
-    public CartaView(List<Plat> entrants, List<Plat> primers, List<Plat> begudes, List<Plat> postres) {
+    public CartaView() {
 
         setSize(800,600);
         setTitle("Carta");
@@ -50,6 +52,7 @@ public class CartaView extends JFrame {
         jButtonsTreureCistella = new ArrayList<>();
         jButtonsEliminarCistella = new ArrayList<>();
         jLabelsUnitsCistella = new ArrayList<>();
+        jLabelsServits = new ArrayList<>();
 
         JTabbedPane jtpNorth = new JTabbedPane();
 
@@ -65,7 +68,6 @@ public class CartaView extends JFrame {
         }
 
         jpCesta = new JPanel();
-        //actualitzarCistella(0, 0);
 
         try {
             image = ImageIO.read(new File("data/ic_shopping_basket_black_24dp_2x.png"));
@@ -74,7 +76,8 @@ public class CartaView extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JPanel jpComanda = new JPanel();
+
+        jpComanda = new JPanel();
         jtpNorth.addTab("Estat comanda", jpComanda);
 
         getContentPane().add(jtpNorth, BorderLayout.CENTER);
@@ -83,9 +86,7 @@ public class CartaView extends JFrame {
 
         //Taula Entrants
 
-        jpEntrants2 = new JPanel(new GridLayout(entrants.size(),1));
-
-        actualitzarEntrants(entrants);
+        jpEntrants2 = new JPanel(new GridLayout(0,1));
 
         JScrollPane jpEntrants = new JScrollPane(jpEntrants2);
         jtpCenter.addTab("Entrants", jpEntrants);
@@ -93,27 +94,21 @@ public class CartaView extends JFrame {
 
         //Taula Primers
 
-        jpPrimers2 = new JPanel(new GridLayout(primers.size(),1));
-
-        actualitzarPrimers(primers);
+        jpPrimers2 = new JPanel(new GridLayout(0,1));
 
         JScrollPane jpPrimers = new JScrollPane(jpPrimers2);
         jtpCenter.addTab("Principals", jpPrimers);
 
         //Taula Begudes
 
-        jpBegudes2 = new JPanel(new GridLayout(begudes.size(),1));
-
-        actualitzarBegudes(begudes);
+        jpBegudes2 = new JPanel(new GridLayout(0,1));
 
         JScrollPane jpBegudes = new JScrollPane(jpBegudes2);
         jtpCenter.addTab("Begudes", jpBegudes);
 
         //Taula Postres
 
-        jpPostres2 = new JPanel(new GridLayout(postres.size(),1));
-
-        actualitzarPostres(postres);
+        jpPostres2 = new JPanel(new GridLayout(0,1));
 
         JScrollPane jpPostres = new JScrollPane(jpPostres2);
         jtpCenter.addTab("Postres", jpPostres);
@@ -153,12 +148,14 @@ public class CartaView extends JFrame {
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
             JButton jbAfegir = new JButton("Afegir");
-            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(postres.get(i).getUnitats()));
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(postres.get(i).getUnitatsSeleccionades()));
 
             jButtonsAfegirUnitat.add(jbAfegirUnitats);
             jButtonsTreureUnitat.add(jbTreureUnitats);
             jButtonsAfegir.add(jbAfegir);
             jLabelsUnits.add(jlUnitats);
+
+            actualitzarUnitats(i, postres.get(i).getUnitatsSeleccionades(), postres.get(i).getUnitats());
 
             jpPostres2.add(new ItemCartaView(postres.get(i).getNom(), jbAfegirUnitats, jbTreureUnitats, jbAfegir, jlUnitats));
         }
@@ -175,12 +172,14 @@ public class CartaView extends JFrame {
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
             JButton jbAfegir = new JButton("Afegir");
-            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(begudes.get(i).getUnitats()));
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(begudes.get(i).getUnitatsSeleccionades()));
 
             jButtonsAfegirUnitat.add(jbAfegirUnitats);
             jButtonsTreureUnitat.add(jbTreureUnitats);
             jButtonsAfegir.add(jbAfegir);
             jLabelsUnits.add(jlUnitats);
+
+            actualitzarUnitats(i, begudes.get(i).getUnitatsSeleccionades(), begudes.get(i).getUnitats());
 
             jpBegudes2.add(new ItemCartaView(begudes.get(i).getNom(), jbAfegirUnitats, jbTreureUnitats, jbAfegir, jlUnitats));
         }
@@ -197,12 +196,14 @@ public class CartaView extends JFrame {
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
             JButton jbAfegir = new JButton("Afegir");
-            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(primers.get(i).getUnitats()));
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(primers.get(i).getUnitatsSeleccionades()));
 
             jButtonsAfegirUnitat.add(jbAfegirUnitats);
             jButtonsTreureUnitat.add(jbTreureUnitats);
             jButtonsAfegir.add(jbAfegir);
             jLabelsUnits.add(jlUnitats);
+
+            actualitzarUnitats(i, primers.get(i).getUnitatsSeleccionades(), primers.get(i).getUnitats());
 
             jpPrimers2.add(new ItemCartaView(primers.get(i).getNom(), jbAfegirUnitats, jbTreureUnitats, jbAfegir, jlUnitats));
         }
@@ -219,12 +220,14 @@ public class CartaView extends JFrame {
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
             JButton jbAfegir = new JButton("Afegir");
-            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(entrants.get(i).getUnitats()));
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(entrants.get(i).getUnitatsSeleccionades()));
 
             jButtonsAfegirUnitat.add(jbAfegirUnitats);
             jButtonsTreureUnitat.add(jbTreureUnitats);
             jButtonsAfegir.add(jbAfegir);
             jLabelsUnits.add(jlUnitats);
+
+            actualitzarUnitats(i, entrants.get(i).getUnitatsSeleccionades(), entrants.get(i).getUnitats());
 
             jpEntrants2.add(new ItemCartaView(entrants.get(i).getNom(), jbAfegirUnitats, jbTreureUnitats, jbAfegir, jlUnitats));
         }
@@ -232,23 +235,48 @@ public class CartaView extends JFrame {
 
     public void actualitzarCistella(List<Plat> cistella) {
 
-        //jpCesta = new JPanel(new GridLayout(numAfegits, 1));
+        jButtonsAfegirCistella = new ArrayList<>();
+        jButtonsEliminarCistella = new ArrayList<>();
+        jButtonsTreureCistella = new ArrayList<>();
+        jLabelsUnitsCistella = new ArrayList<>();
+
         jpCesta.removeAll();
         jpCesta.setLayout(new GridLayout(cistella.size(),1));
+
         for(int i = 0; i < cistella.size(); i++) {
 
             JButton jbAfegirUnitats = new JButton("+");
             JButton jbTreureUnitats = new JButton("-");
-            JButton jbAfegir = new JButton("Esborrar");
-            JLabel jlUnitats = new JLabel(String.valueOf(cistella.get(i)));
+            JButton jbEsborrar = new JButton("Esborrar");
+            JLabel jlUnitats = new JLabel("Unitats escollides: " + String.valueOf(cistella.get(i).getUnitatsSeleccionades()));
 
             jButtonsAfegirCistella.add(jbAfegirUnitats);
             jButtonsTreureCistella.add(jbTreureUnitats);
-            jButtonsEliminarCistella.add(jbAfegir);
+            jButtonsEliminarCistella.add(jbEsborrar);
             jLabelsUnitsCistella.add(jlUnitats);
 
-            jpCesta.add(new ItemCartaView(cistella.get(i).getNom(), jbAfegirUnitats, jbTreureUnitats, jbAfegir, jlUnitats));
-            jpCesta.updateUI();
+            jpCesta.add(new ItemCartaView(cistella.get(i).getNom(), jbAfegirUnitats, jbTreureUnitats, jbEsborrar, jlUnitats));
+
+        }
+    }
+
+    public void actualitzarEstatComanda(List<Plat> estatComanda) {
+
+        jpComanda.removeAll();
+        jpComanda.setLayout(new GridLayout(estatComanda.size(),1));
+        for(int i = 0; i < estatComanda.size(); i++) {
+
+            JLabel jlUnitats = new JLabel(String.valueOf(estatComanda.get(i).getUnitatsSeleccionades()));
+           JLabel jlServit;
+            if (estatComanda.get(i).isServit()) {
+                jlServit = new JLabel("Servit");
+            } else {
+                jlServit = new JLabel("Pendent");
+            }
+            jLabelsServits.add(jlServit);
+
+            jpComanda.add(new ItemEstatComanda(estatComanda.get(i).getNom(), jlUnitats, jlServit));
+
         }
     }
 
@@ -277,7 +305,38 @@ public class CartaView extends JFrame {
 
     }
 
+    /**
+     * Enregistrar els controladors dels botons de la cistella.
+     * @param actionListener
+     */
+    public void registerControllersCistella (ActionListener actionListener) {
+
+        for (int i = 0; i < jButtonsAfegirCistella.size(); i++) {
+
+            jButtonsAfegirCistella.get(i).addActionListener(actionListener);
+            jButtonsAfegirCistella.get(i).setActionCommand("AFEGIR_UNITAT_CISTELLA_" + i);
+
+            jButtonsTreureCistella.get(i).addActionListener(actionListener);
+            jButtonsTreureCistella.get(i).setActionCommand("TREURE_UNITAT_CISTELLA_" + i);
+
+            jButtonsEliminarCistella.get(i).addActionListener(actionListener);
+            jButtonsEliminarCistella.get(i).setActionCommand("TREURE_CISTELLA_" + i);
+        }
+    }
+
+    /**
+     * Actualitzar els plats de la carta, a nivell gràfic, a partir de les llistes rebudes segons categories de plats.
+     * @param entrants
+     * @param primers
+     * @param begudes
+     * @param postres
+     */
     public void actualitzarPlats(List<Plat> entrants, List<Plat> primers, List<Plat> begudes, List<Plat> postres) {
+
+        jButtonsAfegirUnitat = new ArrayList<>();
+        jButtonsTreureUnitat = new ArrayList<>();
+        jButtonsAfegir = new ArrayList<>();
+        jLabelsUnits = new ArrayList<>();
 
         actualitzarEntrants(entrants);
         actualitzarPrimers(primers);
@@ -286,10 +345,51 @@ public class CartaView extends JFrame {
 
     }
 
-    public void actualitzarEstatComanda() {
+
+    public void actualitzarUnitats(int i, int unitatsSeleccionades, int maxUnits) {
+
+        jLabelsUnits.get(i).setText("Unitats escollides: " + unitatsSeleccionades);
+        if (unitatsSeleccionades == 0){
+            jButtonsTreureUnitat.get(i).setEnabled(false);
+        } else {
+            jButtonsTreureUnitat.get(i).setEnabled(true);
+        }
+        if (unitatsSeleccionades == maxUnits) {
+            jButtonsAfegirUnitat.get(i).setEnabled(false);
+        } else {
+            jButtonsAfegirUnitat.get(i).setEnabled(true);
+        }
     }
 
-    public void buidarCistella() {
+    /**
+     * Posar les unitats escollides de tots els plats de la carta a 0.
+     */
+    public void resetejarUnitats () {
+        for (JLabel jl : jLabelsUnits) {
+            jl.setText("Unitats escollides: 0");
+        }
+        for (int i = 0; i < jButtonsAfegirUnitat.size(); i++) {
+            jButtonsAfegirUnitat.get(i).setEnabled(true);
+            jButtonsTreureUnitat.get(i).setEnabled(false);
+        }
+    }
 
+    public void actualitzarUnitatsCistella(int i, int unitatsSeleccionades) {
+
+        jLabelsUnitsCistella.get(i).setText("Unitats escollides: " + unitatsSeleccionades);
+        if (unitatsSeleccionades == 0){
+            jButtonsTreureUnitat.get(i).setEnabled(false);
+        } else {
+            jButtonsTreureUnitat.get(i).setEnabled(true);
+        }
+        if (unitatsSeleccionades == 5) {
+            jButtonsAfegirUnitat.get(i).setEnabled(false);
+        } else {
+            jButtonsAfegirUnitat.get(i).setEnabled(true);
+        }
+    }
+
+    public void setPrice(float price) {
+        jlPreu.setText(price + "€");
     }
 }

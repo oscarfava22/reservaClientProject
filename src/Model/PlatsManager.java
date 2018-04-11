@@ -10,6 +10,7 @@ public class PlatsManager {
     private ArrayList<Plat> postres;
     private ArrayList<Plat> begudes;
     private ArrayList<Plat> cistella; //Plats triats que encara no s'han enviat al servidor.
+    private ArrayList<Plat> estatComanda;
 
     public PlatsManager() {
         plats = new ArrayList<>();
@@ -18,14 +19,14 @@ public class PlatsManager {
         postres = new ArrayList<>();
         begudes = new ArrayList<>();
         cistella = new ArrayList<>();
+        estatComanda = new ArrayList<>();
     }
 
-    public PlatsManager(ArrayList<Plat> plats, ArrayList<Plat> entrants, ArrayList<Plat> primers, ArrayList<Plat> postres, ArrayList<Plat> begudes) {
+    public PlatsManager(ArrayList<Plat> plats) {
         this.plats = plats;
-        this.entrants = entrants;
-        this.primers = primers;
-        this.postres = postres;
-        this.begudes = begudes;
+        cistella = new ArrayList<>();
+        estatComanda = new ArrayList<>();
+        extreureTipusPlat();
     }
 
     public void setPlats(ArrayList<Plat> plats) {
@@ -88,29 +89,26 @@ public class PlatsManager {
         return cistella;
     }
 
-    public void afegirUnitat(int i) {
-
-        plats.get(i).setUnitats(plats.get(i).getUnitats() + 1);
-        extreureTipusPlat();
+    public ArrayList<Plat> getEstatComanda() {
+        return estatComanda;
     }
 
+    /**
+     * Afegir unitat a les unitats seleccionades per l'usuari del plat ièssim a la carta.
+     * @param i
+     */
+    public void afegirUnitat(int i) {
+
+        plats.get(i).incrementaUnitatsSeleccionades();
+    }
+
+    /**
+     * Treure unitat a les unitats seleccionades per l'usuari del plat ièssim a la carta.
+     * @param i
+     */
     public void treureUnitat(int i) {
 
-        switch (plats.get(i).getTipus()){
-
-            case 0:
-                entrants.get(i).setUnitats(entrants.get(i).getUnitats() - 1);
-                break;
-            case 1:
-                primers.get(i).setUnitats(primers.get(i).getUnitats() - 1);
-                break;
-            case 2:
-                postres.get(i).setUnitats(postres.get(i).getUnitats() - 1);
-                break;
-            case 3:
-                begudes.get(i).setUnitats(begudes.get(i).getUnitats() - 1);
-                break;
-        }
+        plats.get(i).decrementaUnitatsSeleccionades();
     }
 
     /**
@@ -120,17 +118,74 @@ public class PlatsManager {
      * @param unitats
      */
     public void afegirPlatComanda(int i, int unitats) {
-        for (Plat p : cistella) {
-            if(p.getNom().equals(plats.get(i).getNom())){
-                p.setUnitats(p.getUnitats() + unitats);
-                return;
+        if (cistella != null) {
+            for (Plat p : cistella) {
+                if (p.getNom().equals(plats.get(i).getNom())) {
+                    p.setUnitatsSeleccionades(p.getUnitatsSeleccionades() + unitats);
+                    return;
+                }
             }
         }
-        cistella.add(plats.get(i));
+        cistella.add(new Plat(plats.get(i).getNom(), plats.get(i).getPrice(), plats.get(i).getUnitats(), plats.get(i).getTipus(), plats.get(i).getUnitatsSeleccionades()));
 
     }
 
     public void buidarCistella () {
         cistella = new ArrayList<>();
+        for (Plat p : plats) {
+            p.setUnitatsSeleccionades(0);
+        }
+    }
+
+    public void resetejarUnitats() {
+        for (Plat p : plats) {
+            p.setUnitatsSeleccionades(0);
+        }
+    }
+
+    /**
+     * Afegir a la comanda actual els plats que es demanen al Servidor.
+     */
+    public void afegirComanda() {
+
+        boolean trobat;
+
+        for (Plat p : cistella) {
+            trobat = false;
+            for (Plat pc : estatComanda){
+                if (pc.getNom().equals(p.getNom())){
+                    pc.setUnitatsSeleccionades(pc.getUnitatsSeleccionades() + p.getUnitatsSeleccionades());
+                    trobat = true;
+                    break;
+                }
+            }
+            if (!trobat) {
+                estatComanda.add(p);
+            }
+        }
+    }
+
+    public int getNumPlatsCistella() {
+        return cistella.size();
+    }
+
+    public void afegirUnitatCistella(int i) {
+        cistella.get(i).setUnitatsSeleccionades(cistella.get(i).getUnitatsSeleccionades() + 1);
+    }
+
+    public void treureUnitatCistella(int i) {
+        cistella.get(i).setUnitatsSeleccionades(cistella.get(i).getUnitatsSeleccionades() - 1);
+    }
+
+    public void treureCistella(int i) {
+        cistella.remove(i);
+    }
+
+    public float getPreuComanda() {
+        float preu = 0.0f;
+        for (Plat p : estatComanda) {
+            preu += (p.getPrice() * p.getUnitatsSeleccionades());
+        }
+        return preu;
     }
 }

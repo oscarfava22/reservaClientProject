@@ -94,4 +94,8 @@ public class NetworkManager extends Thread {
     public void sendMessageSignIn(String login, String pass) throws IOException {
         oos.writeChars(login + "%%" + pass);
     }
+
+    public void sendPagar () throws IOException {
+        oos.writeChars("PAGAR");
+    }
 }

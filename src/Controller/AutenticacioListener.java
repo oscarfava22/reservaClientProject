@@ -1,10 +1,12 @@
 package Controller;
 
+import Model.Plat;
 import Network.NetworkManager;
 import view.AutenticacioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AutenticacioListener implements ActionListener{
 
@@ -32,13 +34,25 @@ public class AutenticacioListener implements ActionListener{
         switch (e.getActionCommand()) {
 
             case AutenticacioView.ACCESS:
-                if(1 == 1){
-                    controller.setViewVisible();
+                if(1 == 1){ //TODO
+                    //Esperar a rebre la carta de plats.
+
+                    ArrayList<Plat> entrants = new ArrayList<>(); //Això ho farà NETWORK MANAGER
+                    ArrayList<Plat> primers = new ArrayList<>(); //Això ho farà NETWORK MANAGER
+                    ArrayList<Plat> begudes = new ArrayList<>(); //Això ho farà NETWORK MANAGER
+                    ArrayList<Plat> postres = new ArrayList<>(); //Això ho farà NETWORK MANAGER
+
+                    entrants.add(new Plat("Amanida", 50, 5, 0)); //Això ho farà NETWORK MANAGER
+                    entrants.add(new Plat("Oli", 50, 5, 0)); //Això ho farà NETWORK MANAGER
+                    entrants.add(new Plat("Sal", 50, 5, 0)); //Això ho farà NETWORK MANAGER
+
+                    controller.actualitzarPlats(entrants, primers, begudes, postres); //Això ho farà NETWORK MANAGER
+
+                    controller.setViewVisible(); //Un cop tenim la llista de plats actualitzada a model i vista.
                     viewAutenticacio.setVisible(false);
                     System.out.println("Modificacio adaptada a testing");
                     break;
                 }
-
 
                 //Comprovar que el nom d'usuari no estigui buit.
                 if(viewAutenticacio.getJtfName().equals("") || viewAutenticacio.getJtfPassword().equals("") ){
@@ -79,5 +93,9 @@ public class AutenticacioListener implements ActionListener{
 
                 break;
         }
+    }
+
+    public void setViewVisible(boolean viewVisible) {
+        viewAutenticacio.setVisible(viewVisible);
     }
 }
