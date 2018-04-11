@@ -1,6 +1,7 @@
 package Network;
 
 import Controller.AutenticacioListener;
+import Controller.ReservaListener;
 import Model.JsonManager;
 import Model.Plat;
 import Model.PlatsManager;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NetworkManager extends Thread {
     private String IP;
@@ -19,12 +21,12 @@ public class NetworkManager extends Thread {
     private boolean running;
     private boolean waiting;
     private boolean signCorrect;
-    private AutenticacioListener autenticacioListener;
-    private PlatsManager pm;
+    private ReservaListener reservaListener;
+    private PlatsManager model;
 
-    public NetworkManager(AutenticacioListener autenticacioListener, PlatsManager pm) throws IOException{ //to avoid initialized message
+    public NetworkManager(ReservaListener reservaListener, PlatsManager model) throws IOException{ //to avoid initialized message
 
-            this.pm = pm;
+            this.model = model;
             JsonManager jm = new JsonManager();
             this.IP = jm.getIp();
             this.PORT = jm.getPort();
@@ -32,7 +34,7 @@ public class NetworkManager extends Thread {
             oos = new ObjectOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             running = true;
-            this.autenticacioListener = autenticacioListener;
+            this.reservaListener = reservaListener;
             waiting = false;
             start();
     }
@@ -49,15 +51,19 @@ public class NetworkManager extends Thread {
         try {
             while (running) {
                 Object orders = dis.readUTF();
-                if(orders.getClass().equals(Boolean.class)){
+                if (orders.getClass().equals(Boolean.class)) {
                     signCorrect = (boolean) orders;
                     waiting = false;
-                }else {
+                } else if (orders.getClass().equals(String.class)) { //Rebem String amb el nom del plat que ja s'ha servit
+
+                    reservaListener.actualitzarEstatComanda((String) orders);
+                } else {
                     try{
                         ArrayList<Plat> plats = (ArrayList<Plat>) orders;
                         if(plats.get(1).getClass().equals(Plat.class)){
-                            pm.setPlats(plats);
-                            pm.extreureTipusPlat();
+                            model.setPlats(plats);
+                            model.extreureTipusPlat();
+                            reservaListener.actualitzarPlats((ArrayList<Plat>)orders, (ArrayList<Plat>)orders, (ArrayList<Plat>)orders, (ArrayList<Plat>)orders);
                         }
                     }catch (ClassCastException e){
                         System.err.println("Wrong Message From Server");
@@ -75,12 +81,14 @@ public class NetworkManager extends Thread {
     public boolean singInIsCorrect(){
         waiting = true;
         while (waiting){
-            //do nothing
+            //do nothing. Està treballant el run.
         }
         return signCorrect;
     }
 
-    public void sendOrder() throws IOException {
+    public void sendOrder(List<Plat> order) throws IOException {
+
+        oos.writeObject(order);
     }
 
     public void sendMessageSignIn(String login, String pass) throws IOException {
