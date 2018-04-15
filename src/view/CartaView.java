@@ -266,7 +266,7 @@ public class CartaView extends JFrame {
         jpComanda.setLayout(new GridLayout(estatComanda.size(),1));
         for(int i = 0; i < estatComanda.size(); i++) {
 
-            JLabel jlUnitats = new JLabel(String.valueOf(estatComanda.get(i).getUnitatsSeleccionades()));
+           JLabel jlUnitats = new JLabel(String.valueOf(estatComanda.get(i).getUnitatsSeleccionades()));
            JLabel jlServit;
             if (estatComanda.get(i).isServit()) {
                 jlServit = new JLabel("Servit");

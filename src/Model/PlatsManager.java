@@ -20,6 +20,7 @@ public class PlatsManager {
         begudes = new ArrayList<>();
         cistella = new ArrayList<>();
         estatComanda = new ArrayList<>();
+
     }
 
     public PlatsManager(ArrayList<Plat> plats) {
