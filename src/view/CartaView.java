@@ -15,9 +15,11 @@ public class CartaView extends JFrame {
 
     public static final String PAGAR = "PAGAR";
     public static final String DEMANAR = "DEMANAR";
+
     private final JButton jbPagar;
     private final JButton jbDemanar;
     private final JLabel jlPreu;
+
     private final JPanel jpEntrants2;
     private final JPanel jpPrimers2;
     private final JPanel jpBegudes2;
@@ -25,10 +27,12 @@ public class CartaView extends JFrame {
     private final JPanel jpComanda;
 
     private JPanel jpCesta;
+
     private ArrayList<JButton> jButtonsAfegirUnitat;
     private ArrayList<JButton> jButtonsTreureUnitat;
     private ArrayList<JButton> jButtonsAfegir;
     private ArrayList<JLabel> jLabelsUnits;
+
     private ArrayList<JButton> jButtonsAfegirCistella;
     private ArrayList<JButton> jButtonsTreureCistella;
     private ArrayList<JButton> jButtonsEliminarCistella;

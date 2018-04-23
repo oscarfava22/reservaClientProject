@@ -1,6 +1,5 @@
 package Network;
 
-import Controller.AutenticacioListener;
 import Controller.ReservaListener;
 import Model.JsonManager;
 import Model.Plat;

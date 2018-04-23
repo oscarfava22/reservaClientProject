@@ -78,6 +78,10 @@ public class AutenticacioView extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Mostrar error por un dialogo
+     * @param message mensaje que muestra en el dialogo
+     */
     public void showError(String message){
         JOptionPane.showMessageDialog(null, message,"An error ocurred",JOptionPane.ERROR_MESSAGE );
     }
@@ -90,6 +94,10 @@ public class AutenticacioView extends JFrame {
         return jtfPassword.getText();
     }
 
+    /**
+     * Per atribuir un listener als components que interactuen amb l'usuari
+     * @param actionListener listener que estara escoltant
+     */
     public void registerControllers (ActionListener actionListener) {
         jbAccess.addActionListener(actionListener);
         jbAccess.setActionCommand(ACCESS);
