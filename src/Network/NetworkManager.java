@@ -38,13 +38,17 @@ public class NetworkManager extends Thread {
             start();
     }
 
-
+    /**
+     * Paramos el proceso de conexion con el servidor
+     */
     private void stopServerConnection () {
         running = false;
         interrupt();
     }
 
-
+    /**
+     * Procedimiento que estara activo mientras no se cierre la conexion.
+     */
     @Override
     public void run () {
         try {
@@ -53,7 +57,7 @@ public class NetworkManager extends Thread {
                 if (orders.getClass().equals(Boolean.class)) {
                     signCorrect = (boolean) orders;
                     waiting = false;
-                } else if (orders.getClass().equals(String.class)) { //Rebem String amb el nom del plat que ja s'ha servit
+                } else if (orders.getClass().equals(String.class)) {
 
                     reservaListener.actualitzarEstatComanda((String) orders);
                 } else {
@@ -76,24 +80,41 @@ public class NetworkManager extends Thread {
         }
     }
 
-
+    /**
+     * Proceso complementario para la comprobacion de que el usuario es correcto
+     * @return si es correcto o no
+     */
     public boolean singInIsCorrect(){
         waiting = true;
         while (waiting){
-            //do nothing. Està treballant el run.
         }
         return signCorrect;
     }
 
+    /**
+     *
+     * @param order
+     * @throws IOException
+     */
     public void sendOrder(List<Plat> order) throws IOException {
 
         oos.writeObject(order);
     }
 
+    /**
+     *
+     * @param login
+     * @param pass
+     * @throws IOException
+     */
     public void sendMessageSignIn(String login, String pass) throws IOException {
         oos.writeChars(login + "%%" + pass);
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void sendPagar () throws IOException {
         oos.writeChars("PAGAR");
     }

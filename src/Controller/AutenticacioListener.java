@@ -20,14 +20,26 @@ public class AutenticacioListener implements ActionListener{
         this.controller = controller;
     }
 
+    /**
+     * Avisa a la vista de que se ha producido un error
+     * @param error mensage de error a mostrar
+     */
     public void showError(String error){
         viewAutenticacio.showError(error);
     }
 
+    /**
+     * Registrar la red al listener
+     * @param n administrador de red
+     */
     public void registerNetwork(NetworkManager n){
         this.networkManager = n;
     }
 
+    /**
+     * Controla las acciones que el usuario esta llevando a cabo
+     * @param e accion en cuestion
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -95,6 +107,10 @@ public class AutenticacioListener implements ActionListener{
         }
     }
 
+    /**
+     * Avisa a la view de que se ponga visible
+     * @param viewVisible view en cuestion
+     */
     public void setViewVisible(boolean viewVisible) {
         viewAutenticacio.setVisible(viewVisible);
     }

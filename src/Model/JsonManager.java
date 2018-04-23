@@ -14,7 +14,10 @@ public class JsonManager {
         obj = carregarMemoria();
     }
 
-    //carregarMemoria
+    /**
+     * Carga el objecto json buscando la carpeta json para cargar el archivo
+     * @return
+     */
     private static JsonObject carregarMemoria(){
 
         JsonParser parser = new JsonParser(); // tipus parser per obtenir el format desitjat
@@ -30,10 +33,18 @@ public class JsonManager {
         return null;
     }
 
+    /**
+     * Obtiene el string de IP a partir del jsonObject
+     * @return la ip de la red
+     */
     public String getIp(){
         return obj.get("IP").getAsString();
     }
 
+    /**
+     * Obtiene el int del puerto a partir del jsonObject
+     * @return el puerto de red
+     */
     public int getPort(){
         return obj.get("PORT").getAsInt();
     }
