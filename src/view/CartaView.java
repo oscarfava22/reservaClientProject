@@ -25,6 +25,8 @@ public class CartaView extends JFrame {
     private final JPanel jpBegudes2;
     private final JPanel jpPostres2;
     private final JPanel jpComanda;
+    private final JTabbedPane jtpNorth;
+    private final JTabbedPane jtpCenter;
 
     private JPanel jpCesta;
 
@@ -58,9 +60,9 @@ public class CartaView extends JFrame {
         jLabelsUnitsCistella = new ArrayList<>();
         jLabelsServits = new ArrayList<>();
 
-        JTabbedPane jtpNorth = new JTabbedPane();
+        jtpNorth = new JTabbedPane();
 
-        JTabbedPane jtpCenter = new JTabbedPane();
+        jtpCenter = new JTabbedPane();
 
         Image image = null;
         try {
@@ -72,17 +74,21 @@ public class CartaView extends JFrame {
         }
 
         jpCesta = new JPanel();
+        JPanel jpCesta2 = new JPanel(new BorderLayout());
+        jpCesta2.add(jpCesta, BorderLayout.NORTH);
 
         try {
             image = ImageIO.read(new File("data/ic_shopping_basket_black_24dp_2x.png"));
             Icon icon = new ImageIcon(image);
-            jtpNorth.addTab("Cesta", icon, jpCesta);
+            jtpNorth.addTab("Cesta", icon, jpCesta2);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         jpComanda = new JPanel();
-        jtpNorth.addTab("Estat comanda", jpComanda);
+        JPanel jpComanda2 = new JPanel(new BorderLayout());
+        jpComanda2.add(jpComanda, BorderLayout.NORTH);
+        jtpNorth.addTab("Estat comanda", jpComanda2);
 
         getContentPane().add(jtpNorth, BorderLayout.CENTER);
 
@@ -260,6 +266,7 @@ public class CartaView extends JFrame {
             jLabelsUnitsCistella.add(jlUnitats);
 
             jpCesta.add(new ItemCartaView(cistella.get(i).getNom(), jbAfegirUnitats, jbTreureUnitats, jbEsborrar, jlUnitats));
+
 
         }
     }

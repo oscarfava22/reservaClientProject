@@ -38,6 +38,6 @@ public class ItemEstatComanda extends JPanel {
         jpRight.add(jlServit);
         item.add(jpRight);
 
-        this.add(item);
+        this.add(item, BorderLayout.NORTH);
     }
 }

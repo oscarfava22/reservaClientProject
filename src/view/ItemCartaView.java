@@ -18,9 +18,17 @@ public class ItemCartaView extends JPanel {
         jpAfegirUnitats.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
         jpAfegirUnitats.add(Box.createVerticalGlue());
+        jbAfegirUnitats.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbAfegirUnitats.setAlignmentY(Component.CENTER_ALIGNMENT);
+        jbAfegirUnitats.setMinimumSize(new Dimension(45, 25));
+        jbAfegirUnitats.setMaximumSize(new Dimension(45, 25));
         jpAfegirUnitats.add(jbAfegirUnitats);
 
         jpAfegirUnitats.add(Box.createVerticalGlue());
+        jbTreureUnitats.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbTreureUnitats.setAlignmentY(Component.CENTER_ALIGNMENT);
+        jbTreureUnitats.setMinimumSize(new Dimension(45, 25));
+        jbTreureUnitats.setMaximumSize(new Dimension(45, 25));
         jpAfegirUnitats.add(jbTreureUnitats);
         jpAfegirUnitats.add(Box.createVerticalGlue());
 
