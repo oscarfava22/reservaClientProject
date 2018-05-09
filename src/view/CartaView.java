@@ -34,6 +34,7 @@ public class CartaView extends JFrame {
     private ArrayList<JButton> jButtonsTreureUnitat;
     private ArrayList<JButton> jButtonsAfegir;
     private ArrayList<JLabel> jLabelsUnits;
+    private ArrayList<JLabel> jLabelsUnitsRestants; //TODO dir a l'usuari les unitats restants
 
     private ArrayList<JButton> jButtonsAfegirCistella;
     private ArrayList<JButton> jButtonsTreureCistella;

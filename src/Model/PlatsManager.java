@@ -256,7 +256,7 @@ public class PlatsManager {
 
     /**
      * Obtiene el precio de la comanda que se ha realizado
-     * @return precio total de la comanda 
+     * @return precio total de la comanda
      */
     public float getPreuComanda() {
         float preu = 0.0f;
